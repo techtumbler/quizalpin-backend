@@ -27,9 +27,9 @@ const fragen = [
     },
     korrekt: "C"
   }
-];
+]
 
-app.get('/api/frage/:id', (req, res) => {
+app.get('/frage/:id', (req, res) => {
   const frage = fragen.find(f => f.id === parseInt(req.params.id));
   if (frage) {
     res.json(frage);
@@ -38,5 +38,4 @@ app.get('/api/frage/:id', (req, res) => {
   }
 });
 
-// Wichtig für Vercel:
 module.exports = app;
