@@ -97,7 +97,7 @@ const fragen = [
     frage: "Was ergibt 7 x 8?",
     antworten: { A: "56", B: "54", C: "48", D: "64" },
     korrekt: "A"
-  }
+  },
   {
     id: 16,
     frage: "Was ist die Hauptstadt von Italien?",
