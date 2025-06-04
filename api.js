@@ -379,9 +379,21 @@ app.get('/frage/:id', (req, res) => {
   }
 });
 
+
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
+
 app.get('/fragenZufall', (req, res) => {
   const ids = fragen.map(f => f.id);
-  const zufall = ids.sort(() => Math.random() - 0.5).slice(0, 15);
+  const zufall = shuffle(ids).slice(0, 15);
   res.json({ ids: zufall });
 });
 
