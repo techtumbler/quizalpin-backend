@@ -127,7 +127,8 @@ const fragen = [
     frage: "Wie viele Kontinente gibt es?",
     antworten: { A: "5", B: "6", C: "7", D: "8" },
     korrekt: "C"
-  },{
+  },
+  {
     id: 21,
     frage: "Welcher Kontinent ist flächenmässig der grösste?",
     antworten: { A: "Afrika", B: "Asien", C: "Nordamerika", D: "Europa" },
@@ -398,3 +399,17 @@ app.get('/highscore', (req, res) => {
 })
 
 module.exports = app;
+
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server läuft auf Port ${PORT}`);
+  });
+}
+
+app.get('/fragenZufall', (req, res) => {
+  const ids = fragen.map(f => f.id)
+  const zufall = ids.sort(() => Math.random() - 0.5).slice(0, 15)
+  res.json({ ids: zufall })
+})
+
