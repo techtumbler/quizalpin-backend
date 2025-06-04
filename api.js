@@ -379,37 +379,26 @@ app.get('/frage/:id', (req, res) => {
   }
 });
 
-let highscores = []
+app.get('/fragenZufall', (req, res) => {
+  const ids = fragen.map(f => f.id);
+  const zufall = ids.sort(() => Math.random() - 0.5).slice(0, 15);
+  res.json({ ids: zufall });
+});
+
+let highscores = [];
 
 app.post('/highscore', (req, res) => {
-  const { name, score } = req.body
-
+  const { name, score } = req.body;
   if (!name || typeof name !== 'string' || typeof score !== 'number') {
-    return res.status(400).json({ error: 'Ungültige Daten' })
+    return res.status(400).json({ error: 'Ungültige Daten' });
   }
-
-  highscores.push({ name: name.trim(), score })
-  highscores = highscores.sort((a, b) => b.score - a.score).slice(0, 10)
-
-  res.json({ message: 'Highscore gespeichert', highscores })
-})
+  highscores.push({ name: name.trim(), score });
+  highscores = highscores.sort((a, b) => b.score - a.score).slice(0, 10);
+  res.json({ message: 'Highscore gespeichert', highscores });
+});
 
 app.get('/highscore', (req, res) => {
-  res.json({ highscores })
-})
+  res.json({ highscores });
+});
 
 module.exports = app;
-
-if (require.main === module) {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Server läuft auf Port ${PORT}`);
-  });
-}
-
-app.get('/fragenZufall', (req, res) => {
-  const ids = fragen.map(f => f.id)
-  const zufall = ids.sort(() => Math.random() - 0.5).slice(0, 15)
-  res.json({ ids: zufall })
-})
-
